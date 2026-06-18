@@ -1,15 +1,20 @@
-using Items;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player
+namespace Items
 {
     // Lets the player pick up a distraction by walking into it, then drop it at their current position on a left-click.
-    public class ThrowController : MonoBehaviour
+    public class ThrowableInventory : MonoBehaviour
     {
+        
+        public static event Action<bool> OnInventoryChanged;
+        
         // The distraction currently being carried, or null if hands are empty.
         private Distraction _carried;
 
+        private void Awake() => OnInventoryChanged?.Invoke(false);
+        
         // Picks up a distraction the player walks into.
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -21,6 +26,7 @@ namespace Player
             // Carry it and hide it from the world while held.
             _carried = distraction;
             distraction.gameObject.SetActive(false);
+            OnInventoryChanged?.Invoke(true);
         }
 
         private void Update()
@@ -32,6 +38,7 @@ namespace Player
             // Drop it at the player's position and free our hands.
             _carried.Drop(transform.position);
             _carried = null;
+            OnInventoryChanged?.Invoke(false);
         }
     }
 }
