@@ -23,7 +23,7 @@ namespace Guards
         private Vector3 _seekTarget;
         private bool _halted; // true only after an explicit Stop(); coast otherwise
 
-        public bool HasPath => _index < _path.Count;
+        private bool HasPath => _index < _path.Count;
         public bool HasArrived => !_seeking && !HasPath;
 
         private void Awake()

@@ -1,24 +1,33 @@
 using UnityEngine;
 
-namespace Guards.Goap
+namespace Guards.GOAP
 {
     // The outcome of ticking an action: still working, finished, or no longer possible.
-    public enum Status { Running, Done, Failed }
+    public enum Status
+    {
+        Running,
+        Done,
+        Failed
+    }
 
-    // Base class for a GOAP action. `pre` are the world facts required before it can run;
-    // `post` are the facts it makes true (used by the planner). Enter runs once when the action
+    // Base class for a GOAP action. "pre" are the world facts required before it can run;
+    // "post" are the facts it makes true (used by the planner). Enter runs once when the action
     // starts; Tick runs every frame until it returns Done or Failed.
-    public abstract class Action
+    public abstract class GuardAction
     {
         public readonly State pre = new();
         public readonly State post = new();
 
-        public virtual void Enter(GuardAgent g) { }
+        public virtual void Enter(GuardAgent g)
+        {
+            
+        }
+
         public abstract Status Tick(GuardAgent g);
     }
 
-    // Walk the patrol route. Fails (forcing a replan) the moment anything more interesting appears.
-    public sealed class Patrol : Action
+    // Walk the patrol route. Fails (forcing a re-plan) the moment anything more interesting appears.
+    public sealed class Patrol : GuardAction
     {
         public Patrol() => post.Set(Key.Patrolling, true);
 
@@ -36,7 +45,7 @@ namespace Guards.Goap
     }
 
     // Chase the player directly until within reach.
-    public sealed class MoveToPlayer : Action
+    public sealed class MoveToPlayer : GuardAction
     {
         private const float Reach = 0.6f; // distance at which the player counts as caught
 
@@ -71,9 +80,9 @@ namespace Guards.Goap
     }
 
     // Go to where the player was last seen, then look around for a moment before giving up.
-    public sealed class Investigate : Action
+    public sealed class Investigate : GuardAction
     {
-        private const float Reach = 0.4f;        // arrival distance to the last-seen point
+        private const float Reach = 0.4f; // arrival distance to the last-seen point
         private const float LookDuration = 1.5f; // how long to pause and look once there
         private float _timer;
         private bool _arrived;
@@ -106,6 +115,7 @@ namespace Guards.Goap
                     _arrived = true;
                     g.Movement.Stop();
                 }
+
                 return Status.Running;
             }
 
@@ -118,7 +128,7 @@ namespace Guards.Goap
     }
 
     // Walk over to a noticed distraction, then consume it.
-    public sealed class InvestigateDistraction : Action
+    public sealed class InvestigateDistraction : GuardAction
     {
         private const float Reach = 0.5f;
 
@@ -144,15 +154,35 @@ namespace Guards.Goap
                 g.ClearDistraction();
                 return Status.Done;
             }
+
             return Status.Running;
         }
     }
 
-    // Terminal action once the player is caught: stop and hold (runs indefinitely).
-    public sealed class Apprehend : Action
+    // Terminal action once the player is caugh
+
+    public sealed class Apprehend : GuardAction
     {
-        public Apprehend() { pre.Set(Key.AtPlayer, true); }
-        public override void Enter(GuardAgent g) => g.Movement.Stop();
-        public override Status Tick(GuardAgent g) => Status.Running;
+        private const float HoldDuration = 2f;
+        private float _timer;
+
+        public Apprehend()
+        {
+            pre.Set(Key.AtPlayer, true);
+            post.Set(Key.CaughtPlayer, true);
+        }
+
+        public override void Enter(GuardAgent g)
+        {
+            _timer = 0f;
+            g.Movement.Stop();
+            g.CatchPlayer();
+        }
+
+        public override Status Tick(GuardAgent g)
+        {
+            _timer += Time.deltaTime;
+            return _timer >= HoldDuration ? Status.Failed : Status.Running;
+        }
     }
 }

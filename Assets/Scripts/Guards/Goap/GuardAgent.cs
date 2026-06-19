@@ -4,7 +4,7 @@ using Navigation;
 using Items;
 using UnityEngine;
 
-namespace Guards.Goap
+namespace Guards.GOAP
 {
     // The guard's brain. Each frame it picks the highest-priority relevant goal,
     // has the planner build a plan of actions to reach it, and runs that plan step by step.
@@ -34,16 +34,20 @@ namespace Guards.Goap
         private int _wp;              // current patrol waypoint index
 
         // The actions available to the planner.
-        private readonly List<Action> _actions = new()
+        private readonly List<GuardAction> _actions = new()
             { new Patrol(), new MoveToPlayer(), new Investigate(), new InvestigateDistraction(), new Apprehend() };
 
         private List<Goal> _goals;
 
         // The current plan and where we are in it.
-        private List<Action> _plan;
+        private List<GuardAction> _plan;
         private int _planIndex;
-        private Action _current;
+        private GuardAction _current;
         private Goal _activeGoal;
+        
+        // The Actions events from the Guard agent.
+        public static event Action OnPlayerCaught;
+        public void CatchPlayer() => OnPlayerCaught?.Invoke();
 
         // Wires up movement and defines the goal set (priority order: Chase > Investigate > Distraction > Patrol).
         public void Init(FacilityNavigation nav, Vector3[] waypoints)
@@ -60,7 +64,7 @@ namespace Guards.Goap
                 new("Patrol", 0, g => true) // always relevant — the fallback goal
             };
             // The world state each goal wants to achieve.
-            _goals[0].desired.Set(Key.AtPlayer, true);
+            _goals[0].desired.Set(Key.CaughtPlayer, true);
             _goals[1].desired.Set(Key.AtLastSeen, true);
             _goals[2].desired.Set(Key.AtDistraction, true);
             _goals[3].desired.Set(Key.Patrolling, true);

@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Guards.Goap
+namespace Guards.GOAP
 {
     // The GOAP planner. Finds a sequence of actions that takes the guard from its current
     // state to one satisfying the goal, via breadth-first search over action effects.
     public static class Planner
     {
         // Returns the shortest action sequence reaching goal from start, [] if already satisfied, or null.
-        public static List<Action> Plan(State start, State goal, IReadOnlyList<Action> actions)
+        public static List<GuardAction> Plan(State start, State goal, IReadOnlyList<GuardAction> actions)
         {
             // Already at the goal — no actions needed.
-            if (start.Matches(goal)) return new List<Action>();
+            if (start.Matches(goal)) return new List<GuardAction>();
 
             // BFS frontier of (simulated state, actions taken to get there).
-            var frontier = new Queue<(State state, List<Action> path)>();
-            frontier.Enqueue((start, new List<Action>()));
+            var frontier = new Queue<(State state, List<GuardAction> path)>();
+            frontier.Enqueue((start, new List<GuardAction>()));
             var seen = new HashSet<string> { Hash(start) }; // visited states to avoid revisiting
 
             while (frontier.Count > 0)
@@ -32,7 +32,7 @@ namespace Guards.Goap
                     if (!seen.Add(Hash(next))) continue; // skip states we've already explored
 
                     // Extend the plan; return it if this reaches the goal.
-                    var nextPath = new List<Action>(path) { a };
+                    var nextPath = new List<GuardAction>(path) { a };
                     if (next.Matches(goal)) return nextPath;
                     frontier.Enqueue((next, nextPath));
                 }

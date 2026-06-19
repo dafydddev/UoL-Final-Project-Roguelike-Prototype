@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Guards.Goap
+namespace Guards.GOAP
 {
     // The world-state facts the GOAP planner reasons about (all boolean).
     public enum Key
@@ -12,7 +12,8 @@ namespace Guards.Goap
         HasLastSeen,
         AtLastSeen,
         HasDistraction,
-        AtDistraction
+        AtDistraction,
+        CaughtPlayer
     }
 
     // A set of boolean facts. Used both for the guard's current world state and for the

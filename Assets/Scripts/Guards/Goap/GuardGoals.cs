@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Guards.Goap
+namespace Guards.GOAP
 {
     // A candidate goal for the guard: the world state it wants to bring about,
     // how important it is, and a test for whether it's currently worth pursuing.

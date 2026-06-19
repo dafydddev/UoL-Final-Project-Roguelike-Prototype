@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Generation;
-using Guards.Goap;
+using Guards.GOAP;
 using Navigation;
 using Rooms;
 using UnityEngine;

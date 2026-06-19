@@ -1,4 +1,4 @@
-﻿using Guards.Goap;
+﻿using Guards.GOAP;
 using UnityEngine;
 
 namespace Guards
