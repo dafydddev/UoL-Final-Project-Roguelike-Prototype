@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -6353696115589401045}
   - component: {fileID: -8284033272716229005}
   - component: {fileID: -8929116392756594296}
+  - component: {fileID: 3537484143011539955}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -112,7 +113,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1643427270275705608, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -223,3 +224,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHiding
   hiddenSprite: {fileID: 4494413481151221062, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
   visibleSprite: {fileID: -1643427270275705608, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
+--- !u!114 &3537484143011539955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859736851051902249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9030f9c77d6eb2a438380fc88855f428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHealth
+  lives: 3
+  invulnerableSeconds: 1
