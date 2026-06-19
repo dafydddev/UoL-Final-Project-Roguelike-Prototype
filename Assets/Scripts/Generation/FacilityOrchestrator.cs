@@ -63,7 +63,7 @@ namespace Generation
                         TileType.Door => doorTile,
                         _ => null
                     };
-                    if (tile != null) tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    if (tile) tilemap.SetTile(new Vector3Int(x, y, 0), tile);
                 }
             }
 
