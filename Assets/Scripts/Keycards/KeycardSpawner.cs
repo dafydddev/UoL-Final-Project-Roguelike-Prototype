@@ -36,7 +36,7 @@ namespace Keycards
 
                 // Tint the sprite to match the key/door colour.
                 var spriteRend = go.GetComponentInChildren<SpriteRenderer>();
-                if (spriteRend != null) spriteRend.color = KeyColour.For(keyId);
+                if (spriteRend) spriteRend.color = KeyColour.For(keyId);
                 go.name = $"Keycard_{keyId}";
             }
         }
