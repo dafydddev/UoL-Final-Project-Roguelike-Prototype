@@ -1,4 +1,5 @@
 using Exits;
+using Player;
 using UnityEngine;
 
 namespace Generation
@@ -23,6 +24,8 @@ namespace Generation
 
         // Advance to the level after the current one (called when an exit is reached).
         private void NextLevel() => LoadLevel(CurrentLevel + 1);
+        
+        private void Reload() => LoadLevel(CurrentLevel);
 
         // Loads the given level, deriving its tier and regenerating the facility.
         private void LoadLevel(int level)
@@ -38,7 +41,15 @@ namespace Generation
         }
 
         // Subscribe to / unsubscribe from the exit-reached event for level advancement.
-        private void OnEnable()  => Exit.Reached += NextLevel;
-        private void OnDisable() => Exit.Reached -= NextLevel;
+        private void OnEnable()
+        {
+            Exit.Reached += NextLevel;
+            PlayerHealth.OnDied += Reload;
+        }
+
+        private void OnDisable()
+        {
+            Exit.Reached -= NextLevel;
+        }
     }
 }
