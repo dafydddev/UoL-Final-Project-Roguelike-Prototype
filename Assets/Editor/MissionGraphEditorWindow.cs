@@ -41,6 +41,11 @@ namespace Editor
         private readonly Dictionary<string, Vector2> _missionPositions = new();
         private readonly Dictionary<string, Vector2> _roomPositions = new();
 
+        // Formatting Styles
+
+        private const int FontSize = 13;
+        private const int FontSizeSmall = 10;
+
         // Node and layout dimensions.
         private const float NodeW = 140f;
         private const float NodeH = 50f;
@@ -379,12 +384,12 @@ namespace Editor
 
             var labelStyle = new GUIStyle(EditorStyles.label)
             {
-                alignment = TextAnchor.UpperCenter, fontSize = 10, wordWrap = true,
+                alignment = TextAnchor.UpperCenter, fontSize = FontSize, wordWrap = true,
                 normal = { textColor = Color.white }
             };
             var subStyle = new GUIStyle(EditorStyles.label)
             {
-                alignment = TextAnchor.LowerCenter, fontSize = 9,
+                alignment = TextAnchor.LowerCenter, fontSize = FontSizeSmall,
                 normal = { textColor = new Color(0.6f, 0.6f, 0.7f) }
             };
 
