@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 521488790}
   - component: {fileID: 521488791}
   - component: {fileID: 521488792}
+  - component: {fileID: 521488793}
   m_Layer: 0
   m_Name: Facility
   m_TagString: Untagged
@@ -543,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2337b5fcb180c544aa6f25237606087c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FacilityOrchestrator
-  difficulty: 0
+  difficulty: 2
   lockChance: 1
   tilemap: {fileID: 1101904078}
   floorTile: {fileID: 11400000, guid: 117a61e5f311da249a7b605690639e8d, type: 2}
@@ -559,6 +560,7 @@ MonoBehaviour:
   guardSpawner: {fileID: 521488790}
   throwableSpawner: {fileID: 521488791}
   coverSpawner: {fileID: 521488792}
+  disguiseSpawner: {fileID: 521488793}
 --- !u!114 &521488780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,6 +742,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Items.CoverSpawner
   coverPrefab: {fileID: 5676505084342747013, guid: 61f03ef0d74b8514c99ca31f280fb599, type: 3}
   count: 6
+--- !u!114 &521488793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521488778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ffe88c4026dde42bf73b81b01cd8bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Disguises.DisguiseSpawner
+  disguisePrefab: {fileID: 7716848982077190779, guid: 3de23e885c467ce4b8dc7755d475e42c, type: 3}
+  spawnChance: 0.75
 --- !u!1 &582207248
 GameObject:
   m_ObjectHideFlags: 0

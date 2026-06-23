@@ -1,3 +1,4 @@
+using Disguises;
 using Doors;
 using Exits;
 using Guards;
@@ -37,6 +38,7 @@ namespace Generation
         public GuardSpawner guardSpawner;
         public ThrowableSpawner throwableSpawner;
         public CoverSpawner coverSpawner;
+        public DisguiseSpawner disguiseSpawner;
 
         // Builds a complete level. Exposed in the inspector's context menu for quick testing.
         [ContextMenu("Generate")]
@@ -85,6 +87,7 @@ namespace Generation
             guardSpawner.Spawn(rooms, rects, tilemap, navigation);
             throwableSpawner.Spawn(rooms, rects, tilemap);
             coverSpawner.Spawn(rooms, rects, tilemap);
+            disguiseSpawner.Spawn(rooms, rects, tilemap);
 
             // Reset the static distraction list so stale entries don't carry over.
             Distraction.Clear();
@@ -100,6 +103,7 @@ namespace Generation
             ClearChildren(guardSpawner.transform);
             ClearChildren(throwableSpawner.transform);
             ClearChildren(coverSpawner.transform);
+            ClearChildren(disguiseSpawner.transform);
         }
 
         // Destroys all children of a transform, using the play-mode-safe destroy call.

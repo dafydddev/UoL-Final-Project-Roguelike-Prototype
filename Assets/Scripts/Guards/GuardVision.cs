@@ -23,13 +23,23 @@ namespace Guards
         private Rigidbody2D _rb;
         private Transform _player;
         private bool _playerIsHidden;
+        private bool _playerIsDisguised;
         private bool _seenLastFrame;
         private float _unseenTimer; // time since the player was last visible
 
         private Vector2 _facing = Vector2.right; // current look direction (from movement)
 
-        private void OnEnable() => PlayerHiding.OnHiddenChanged += OnHiddenChanged;
-        private void OnDisable() => PlayerHiding.OnHiddenChanged -= OnHiddenChanged;
+        private void OnEnable()
+        {
+            PlayerHiding.OnHiddenChanged += OnHiddenChanged;
+            PlayerDisguise.OnDisguisedChanged += OnDisguisedChanged;
+        }
+
+        private void OnDisable()
+        {
+            PlayerHiding.OnHiddenChanged -= OnHiddenChanged;
+            PlayerDisguise.OnDisguisedChanged -= OnDisguisedChanged;
+        }
 
         private void Awake()
         {
@@ -74,6 +84,8 @@ namespace Guards
 
         private void OnHiddenChanged(bool hidden) => _playerIsHidden = hidden;
 
+        private void OnDisguisedChanged(bool disguised) => _playerIsDisguised = disguised;
+
         // True if the player is in range, not hidden (unless already being chased), and in line of sight.
         private bool CanSeePlayer()
         {
@@ -85,6 +97,8 @@ namespace Guards
 
             // A hidden player is invisible unless this guard is already actively chasing.
             if (_playerIsHidden && !_agent.IsChasing) return false;
+            // A disguised player goes unrecognised — unless this guard is already chasing them.
+            if (_playerIsDisguised && !_agent.IsChasing) return false;
 
             return CanSee(hit.transform.position);
         }
