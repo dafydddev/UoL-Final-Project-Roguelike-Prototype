@@ -16,7 +16,7 @@ namespace Player
         public void SpawnPlayer(Vector3 spawnPosition)
         {
             // Clear out the previous player first so we never leave duplicates behind.
-            if (_player != null)
+            if (_player)
             {
                 // Destroy is deferred and only valid in play mode; editor/generation needs the immediate version.
                 if (Application.isPlaying) Destroy(_player);
