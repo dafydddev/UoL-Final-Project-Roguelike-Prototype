@@ -175,18 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
-  moveAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Move
-      m_Type: 0
-      m_ExpectedControlType: Vector2
-      m_Id: 908bbef1-99ee-4cfc-98c2-ceb52a9b1cba
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
+  moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &-6353696115589401045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,3 +240,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318811993b71dec4e9f672de432489ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerDisguise
+  disguisedSprite: {fileID: 240301405426813470, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
+  nonDisguisedSprite: {fileID: -1643427270275705608, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
