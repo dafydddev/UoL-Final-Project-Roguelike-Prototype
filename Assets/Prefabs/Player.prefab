@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 3537484143011539955}
   - component: {fileID: 2014282460128008873}
   - component: {fileID: 7875455850860876263}
+  - component: {fileID: -8553406071370541998}
+  - component: {fileID: 8694211514588602691}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -253,3 +255,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerSprite
   hiddenSprite: {fileID: 4494413481151221062, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
   disguisedSprite: {fileID: 240301405426813470, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
+--- !u!114 &-8553406071370541998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859736851051902249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f0c0b14f5174b40a3493cba532ce1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Audio.PlayerAudio
+  playerHitClip: {fileID: 8300000, guid: 9bbdddecf4847f54fa8cf8749c5a49a7, type: 3}
+  playerDeathClip: {fileID: 8300000, guid: bc4b2c56863d6a14dacd91ac8c6db016, type: 3}
+--- !u!114 &8694211514588602691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859736851051902249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a427c055d59ae428bf1e1ec77ecab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Audio.DistractionAudio
+  distractionClip: {fileID: 8300000, guid: 6c642b1a491726e4693a564457499e26, type: 3}
