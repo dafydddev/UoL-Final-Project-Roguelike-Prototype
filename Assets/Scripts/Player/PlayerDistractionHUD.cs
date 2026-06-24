@@ -7,7 +7,7 @@ namespace Player
     // HUD icon for the player's throwable. Shows the icon while the player is carrying a
     // throwable and hides it otherwise, driven by ThrowableInventory's change event.
     [RequireComponent(typeof(Image))]
-    public class PlayerInventoryHUD : MonoBehaviour
+    public class PlayerDistractionHUD : MonoBehaviour
     {
         [SerializeField] private Sprite inventoryIconSprite;
         private Image _inventoryIcon;
@@ -23,12 +23,12 @@ namespace Player
         // Listen for inventory changes while active.
         private void OnEnable()
         {
-            ThrowableInventory.OnInventoryChanged += OnThrowableChanged;
+            PlayerDistractionInventory.OnInventoryChanged += OnThrowableChanged;
         }
 
         private void OnDisable()
         {
-            ThrowableInventory.OnInventoryChanged -= OnThrowableChanged;
+            PlayerDistractionInventory.OnInventoryChanged -= OnThrowableChanged;
         }
 
         // Show or hide the icon based on whether the player is currently holding a throwable.

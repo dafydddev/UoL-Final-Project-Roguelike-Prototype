@@ -1,17 +1,18 @@
 using System;
+using Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Items
+namespace Player
 {
     // Lets the player pick up a distraction by walking into it, then drop it at their current position on a left-click.
-    public class ThrowableInventory : MonoBehaviour
+    public class PlayerDistractionInventory : MonoBehaviour
     {
         
         public static event Action<bool> OnInventoryChanged;
         
         // The distraction currently being carried, or null if hands are empty.
-        private Distraction _carried;
+        private DistractionItem _carried;
 
         private void Awake() => OnInventoryChanged?.Invoke(false);
         
@@ -21,7 +22,7 @@ namespace Items
             // Can only carry one at a time.
             if (_carried != null) return;
             // Only react to dropped-and-available distractions, not other colliders.
-            var distraction = other.GetComponent<Distraction>();
+            var distraction = other.GetComponent<DistractionItem>();
             if (distraction == null || distraction.Dropped) return;
             // Carry it and hide it from the world while held.
             _carried = distraction;

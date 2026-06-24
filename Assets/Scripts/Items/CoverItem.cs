@@ -6,7 +6,7 @@ namespace Items
     // A hiding spot. While the player overlaps this trigger, they count as hidden
     // (via PlayerHiding's counter), letting them break the line of sight from guards.
     [RequireComponent(typeof(Collider2D))]
-    public class Hideable : MonoBehaviour
+    public class CoverItem : MonoBehaviour
     {
         // When first added in the editor, default the collider to a trigger.
         private void Reset()

@@ -9,7 +9,7 @@ namespace Items
 {
     // Scatters a fixed number of throwable items across the facility, in corridors and guard posts,
     // choosing rooms randomly (seeded) so placement is repeatable per level.
-    public class ThrowableSpawner : MonoBehaviour
+    public class DistractionSpawner : MonoBehaviour
     {
         public GameObject throwablePrefab;
         [Tooltip("How many throwables to scatter across the facility.")]

@@ -5,13 +5,13 @@ namespace Items
 {
     // A throwable distraction. Before being thrown, it can be picked up by the player.
     // Once dropped, it sits in the world as a point of interest for guards to investigate.
-    public class Distraction : MonoBehaviour
+    public class DistractionItem : MonoBehaviour
     {
         // True once thrown/dropped. Pickup is only allowed before this is set.
         public bool Dropped { get; private set; }
 
         // All dropped distractions currently in the world, for Nearest() lookups.
-        private static readonly List<Distraction> Active = new();
+        private static readonly List<DistractionItem> Active = new();
 
         // Re-register with the active list when re-enabled, but only if already dropped.
         private void OnEnable()
@@ -39,9 +39,9 @@ namespace Items
         }
 
         // Returns the closest dropped distraction to the given point, or null if there are none.
-        public static Distraction Nearest(Vector3 from)
+        public static DistractionItem Nearest(Vector3 from)
         {
-            Distraction best = null;
+            DistractionItem best = null;
             var bestSqr = float.MaxValue;
             foreach (var d in Active)
             {
