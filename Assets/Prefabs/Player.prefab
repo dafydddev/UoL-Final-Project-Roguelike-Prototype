@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -8929116392756594296}
   - component: {fileID: 3537484143011539955}
   - component: {fileID: 2014282460128008873}
+  - component: {fileID: 7875455850860876263}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -212,8 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705b9aefb4654d6998641246ae610fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHiding
-  hiddenSprite: {fileID: 4494413481151221062, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
-  visibleSprite: {fileID: -1643427270275705608, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
 --- !u!114 &3537484143011539955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,5 +239,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318811993b71dec4e9f672de432489ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerDisguise
+--- !u!114 &7875455850860876263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859736851051902249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07edd08517514cfd9fec3d5f054c411c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerSprite
+  hiddenSprite: {fileID: 4494413481151221062, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
   disguisedSprite: {fileID: 240301405426813470, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
-  nonDisguisedSprite: {fileID: -1643427270275705608, guid: e160acfec0950a648bb08ad8ed02cc53, type: 3}
