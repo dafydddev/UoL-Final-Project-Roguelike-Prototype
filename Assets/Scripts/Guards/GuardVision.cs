@@ -71,7 +71,7 @@ namespace Guards
             }
 
             // Independently, notice the nearest visible distraction.
-            var distraction = Distraction.Nearest(transform.position);
+            var distraction = DistractionItem.Nearest(transform.position);
             if (distraction && CanSee(distraction.transform.position)) _agent.OnDistractionSeen(distraction);
         }
 

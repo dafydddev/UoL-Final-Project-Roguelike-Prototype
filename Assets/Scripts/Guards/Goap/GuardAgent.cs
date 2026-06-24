@@ -23,7 +23,7 @@ namespace Guards.GOAP
         public bool HasLastSeen { get; private set; }
 
         // A distraction the guard has noticed and may go investigate.
-        public Distraction Distraction { get; private set; }
+        public DistractionItem DistractionItem { get; private set; }
         public Vector3 DistractionPos { get; private set; }
         public bool HasDistraction { get; private set; }
 
@@ -184,10 +184,10 @@ namespace Guards.GOAP
         }
 
         // Called by vision when a distraction is noticed — but only if nothing more important is going on.
-        public void OnDistractionSeen(Distraction d)
+        public void OnDistractionSeen(DistractionItem d)
         {
             if (SeesPlayer || HasLastSeen || HasDistraction) return;
-            Distraction = d;
+            DistractionItem = d;
             DistractionPos = d.transform.position;
             HasDistraction = true;
         }
@@ -198,8 +198,8 @@ namespace Guards.GOAP
         // Consumes the current distraction, destroying its object.
         public void ClearDistraction()
         {
-            if (Distraction) Destroy(Distraction.gameObject);
-            Distraction = null;
+            if (DistractionItem) Destroy(DistractionItem.gameObject);
+            DistractionItem = null;
             HasDistraction = false;
         }
     }

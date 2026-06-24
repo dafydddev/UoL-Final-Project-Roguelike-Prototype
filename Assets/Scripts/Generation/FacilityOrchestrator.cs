@@ -36,7 +36,7 @@ namespace Generation
         public ExitSpawner exitSpawner;
         public FacilityNavigation navigation;
         public GuardSpawner guardSpawner;
-        public ThrowableSpawner throwableSpawner;
+        public DistractionSpawner distractionSpawner;
         public CoverSpawner coverSpawner;
         public DisguiseSpawner disguiseSpawner;
 
@@ -85,12 +85,12 @@ namespace Generation
             exitSpawner.Spawn(rooms, rects, tilemap);
             navigation.Build(grid);
             guardSpawner.Spawn(rooms, rects, tilemap, navigation);
-            throwableSpawner.Spawn(rooms, rects, tilemap);
+            distractionSpawner.Spawn(rooms, rects, tilemap);
             coverSpawner.Spawn(rooms, rects, tilemap);
             disguiseSpawner.Spawn(rooms, rects, tilemap);
 
             // Reset the static distraction list so stale entries don't carry over.
-            Distraction.Clear();
+            DistractionItem.Clear();
         }
 
         // Destroys everything spawned under each spawner from the previous level.
@@ -101,7 +101,7 @@ namespace Generation
             ClearChildren(objectiveSpawner.transform);
             ClearChildren(exitSpawner.transform);
             ClearChildren(guardSpawner.transform);
-            ClearChildren(throwableSpawner.transform);
+            ClearChildren(distractionSpawner.transform);
             ClearChildren(coverSpawner.transform);
             ClearChildren(disguiseSpawner.transform);
         }

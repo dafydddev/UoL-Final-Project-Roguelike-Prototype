@@ -30,7 +30,7 @@ namespace Doors
             }
 
             // Player passes only while holding the matching key.
-            var inventory = col.collider.GetComponent<PlayerInventory>();
+            var inventory = col.collider.GetComponent<PlayerKeycardInventory>();
             if (inventory != null && inventory.HasKey(keyId)) Open();
         }
 
