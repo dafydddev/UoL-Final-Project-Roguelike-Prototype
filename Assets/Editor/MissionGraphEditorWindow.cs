@@ -35,6 +35,7 @@ namespace Editor
 
         private Tab _tab = Tab.Mission;
         private Vector2 _scroll; // scroll position of the graph canvas
+        private float _zoom = 1f; // current zoom factor applied to the graph canvas
         private string _selectedNodeId; // id of the node shown in the inspector, or null
 
         // Computed screen positions for each node, per graph.
@@ -53,6 +54,10 @@ namespace Editor
         private const float LevelSpacingY = 70f; // vertical gap between nodes on the same level
         private const float CanvasOffsetX = 20f;
         private const float CanvasOffsetY = 20f;
+
+        // Zoom limits.
+        private const float MinZoom = 0.3f;
+        private const float MaxZoom = 2.5f;
 
         // Node/edge colours by type.
         private static readonly Color ColEntry = new(0.29f, 0.62f, 1.00f);
@@ -160,12 +165,16 @@ namespace Editor
             EditorGUILayout.EndHorizontal();
         }
 
-        // Mission/Room toggle buttons.
+        // Mission/Room toggle buttons, plus the zoom controls.
         private void DrawTabs()
         {
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Toggle(_tab == Tab.Mission, "Mission Graph", EditorStyles.toolbarButton)) _tab = Tab.Mission;
             if (GUILayout.Toggle(_tab == Tab.Room, "Room Graph", EditorStyles.toolbarButton)) _tab = Tab.Room;
+            GUILayout.FlexibleSpace();
+            GUILayout.Label($"Zoom {_zoom:0.00}x", GUILayout.Width(80));
+            _zoom = GUILayout.HorizontalSlider(_zoom, MinZoom, MaxZoom, GUILayout.Width(120));
+            if (GUILayout.Button("Reset", EditorStyles.toolbarButton, GUILayout.Width(50))) _zoom = 1f;
             EditorGUILayout.EndHorizontal();
         }
 
@@ -174,6 +183,14 @@ namespace Editor
         {
             var canvasRect = GUILayoutUtility.GetRect(position.width, position.height - 220f);
             EditorGUI.DrawRect(canvasRect, ColBackground);
+
+            // Scroll-wheel over the canvas zooms in/out.
+            if (Event.current.type == EventType.ScrollWheel && canvasRect.Contains(Event.current.mousePosition))
+            {
+                _zoom = Mathf.Clamp(_zoom - Event.current.delta.y * 0.05f, MinZoom, MaxZoom);
+                Event.current.Use();
+                Repaint();
+            }
 
             _scroll = GUI.BeginScrollView(canvasRect, _scroll, ComputeContentRect());
 
@@ -192,7 +209,7 @@ namespace Editor
                 foreach (var dep in node.dependencies)
                 {
                     if (!_missionPositions.TryGetValue(dep, out var fromPos)) continue;
-                    DrawArrow(fromPos, toPos, ColEdge, false);
+                    DrawArrow(fromPos * _zoom, toPos * _zoom, ColEdge, false, _zoom);
                 }
             }
 
@@ -207,7 +224,7 @@ namespace Editor
                     NodeType.Secondary => ColSecondary,
                     _ => Color.grey
                 };
-                DrawNode(pos, node.id, node.text, node.label, col);
+                DrawNode(pos * _zoom, node.id, node.text, node.label, col);
             }
         }
 
@@ -218,7 +235,7 @@ namespace Editor
             {
                 if (!_roomPositions.TryGetValue(edge.fromId, out var fromPos)) continue;
                 if (!_roomPositions.TryGetValue(edge.toId, out var toPos)) continue;
-                DrawArrow(fromPos, toPos, edge.locked ? ColEdgeLocked : ColEdge, edge.locked);
+                DrawArrow(fromPos * _zoom, toPos * _zoom, edge.locked ? ColEdgeLocked : ColEdge, edge.locked, _zoom);
             }
 
             foreach (var room in _roomGraph.rooms)
@@ -238,7 +255,7 @@ namespace Editor
                 var label = room.missionNodeId != null
                     ? _missionGraph.nodes.Find(n => n.id == room.missionNodeId)?.text ?? room.role.ToString()
                     : room.role.ToString();
-                DrawNode(pos, room.id, label, room.role.ToString(), col);
+                DrawNode(pos * _zoom, room.id, label, room.role.ToString(), col);
             }
         }
 
@@ -368,13 +385,15 @@ namespace Editor
                 maxY = Mathf.Max(maxY, p.y);
             }
 
-            return new Rect(0, 0, maxX + NodeW, maxY + NodeH);
+            return new Rect(0, 0, (maxX + NodeW) * _zoom, (maxY + NodeH) * _zoom);
         }
 
         // Draws a single node box (title + subtitle) and handles click-to-select/deselect.
         private void DrawNode(Vector2 pos, string id, string text, string subtitle, Color col)
         {
-            var rect = new Rect(pos.x - NodeW * 0.5f, pos.y - NodeH * 0.5f, NodeW, NodeH);
+            var w = NodeW * _zoom;
+            var h = NodeH * _zoom;
+            var rect = new Rect(pos.x - w * 0.5f, pos.y - h * 0.5f, w, h);
             var isSelected = _selectedNodeId == id;
             var bg = col * 0.25f; // darkened fill
             bg.a = 1f;
@@ -384,12 +403,13 @@ namespace Editor
 
             var labelStyle = new GUIStyle(EditorStyles.label)
             {
-                alignment = TextAnchor.UpperCenter, fontSize = FontSize, wordWrap = true,
+                alignment = TextAnchor.UpperCenter, fontSize = Mathf.Max(1, Mathf.RoundToInt(FontSize * _zoom)),
+                wordWrap = true,
                 normal = { textColor = Color.white }
             };
             var subStyle = new GUIStyle(EditorStyles.label)
             {
-                alignment = TextAnchor.LowerCenter, fontSize = FontSizeSmall,
+                alignment = TextAnchor.LowerCenter, fontSize = Mathf.Max(1, Mathf.RoundToInt(FontSizeSmall * _zoom)),
                 normal = { textColor = new Color(0.6f, 0.6f, 0.7f) }
             };
 
@@ -415,18 +435,18 @@ namespace Editor
         }
 
         // Draws an arrow between two node boxes, optionally dashed (for locked edges), with a head.
-        private static void DrawArrow(Vector2 from, Vector2 to, Color col, bool dashed)
+        private static void DrawArrow(Vector2 from, Vector2 to, Color col, bool dashed, float zoom)
         {
             var dir = (to - from).normalized;
-            var start = RectEdgeIntersect(from, dir, NodeW, NodeH); // exit point on the source box
-            var end = RectEdgeIntersect(to, -dir, NodeW, NodeH); // entry point on the target box
+            var start = RectEdgeIntersect(from, dir, NodeW * zoom, NodeH * zoom); // exit point on the source box
+            var end = RectEdgeIntersect(to, -dir, NodeW * zoom, NodeH * zoom); // entry point on the target box
             var old = Handles.color;
             Handles.color = col;
 
             if (dashed)
             {
                 // Walk the line in fixed-length segments, drawing every other one.
-                const float dashLen = 6f;
+                var dashLen = 6f * zoom;
                 var total = Vector2.Distance(start, end);
                 var drawn = 0f;
                 var on = true;
@@ -448,9 +468,9 @@ namespace Editor
             // Draw the two-pronged arrowhead at the end.
             if ((end - start).sqrMagnitude > 0.01f)
             {
-                var perp = new Vector2(-dir.y, dir.x) * 5f;
-                Handles.DrawLine(end, end - dir * 10f + perp);
-                Handles.DrawLine(end, end - dir * 10f - perp);
+                var perp = new Vector2(-dir.y, dir.x) * (5f * zoom);
+                Handles.DrawLine(end, end - dir * (10f * zoom) + perp);
+                Handles.DrawLine(end, end - dir * (10f * zoom) - perp);
             }
 
             Handles.color = old;
