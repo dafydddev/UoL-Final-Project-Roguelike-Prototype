@@ -11,12 +11,12 @@ namespace Player
     {
         // Raised when a fresh inventory comes up (e.g. new level) so the HUD can clear stale icons.
         public static event Action OnInventoryReset;
-        
-        private void Awake() => OnInventoryReset?.Invoke();
-        
+
         // Raised whenever a new keycard is picked up
         public static event Action<string> OnKeycardCollected;
-        
+
+        private void Awake() => OnInventoryReset?.Invoke();
+
         // The set of key ids the player currently holds.
         private readonly HashSet<string> _keys = new();
 
@@ -28,10 +28,10 @@ namespace Player
         {
             // Ignore colliders that aren't keycards.
             var card = other.GetComponent<Keycard>();
-            if (card == null) return; 
+            if (card == null) return;
             // Store the key id and tell the HUD which card was collected.
             _keys.Add(card.keyId);
-            OnKeycardCollected?.Invoke(card.keyId); 
+            OnKeycardCollected?.Invoke(card.keyId);
             // Remove the pickup from the world.
             Destroy(card.gameObject);
         }

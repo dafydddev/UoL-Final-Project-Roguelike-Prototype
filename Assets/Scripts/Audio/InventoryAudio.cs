@@ -1,7 +1,5 @@
-using Items;
 using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Audio
 {
@@ -13,14 +11,19 @@ namespace Audio
         private void OnEnable()
         {
             PlayerDistractionInventory.OnInventoryChanged += PlayInventorySound;
+            PlayerKeycardInventory.OnKeycardCollected += PlayInventorySound;
         }
 
         private void OnDisable()
         {
             PlayerDistractionInventory.OnInventoryChanged -= PlayInventorySound;
+            PlayerKeycardInventory.OnKeycardCollected -= PlayInventorySound;
         }
-
-        private void PlayInventorySound(bool _)
+        
+        private void PlayInventorySound(bool _) => PlayInventorySound();
+        private void PlayInventorySound(string _) => PlayInventorySound();
+        
+        private void PlayInventorySound()
         {
             if (!inventoryClip) return;
             UISoundManager.Instance.PlayClip(inventoryClip);
