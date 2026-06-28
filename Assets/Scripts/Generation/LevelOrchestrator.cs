@@ -21,11 +21,25 @@ namespace Generation
 
         // Start the run at level 1.
         private void Start() => LoadLevel(1);
+        
+        // Subscribe to / unsubscribe from the exit-reached event for level advancement.
+        private void OnEnable()
+        {
+            Exit.Reached += NextLevel;
+            PlayerHealth.OnDied += Reload;
+        }
+
+        private void OnDisable()
+        {
+            Exit.Reached -= NextLevel;
+            PlayerHealth.OnDied -= Reload;
+        }
 
         // Advance to the level after the current one (called when an exit is reached).
         private void NextLevel() => LoadLevel(CurrentLevel + 1);
         
-        private void Reload() => LoadLevel(CurrentLevel);
+        // Reloading causes the player to go back to the start
+        private void Reload() => LoadLevel(1);
 
         // Loads the given level, deriving its tier and regenerating the facility.
         private void LoadLevel(int level)
@@ -38,19 +52,6 @@ namespace Generation
             mission.complexity = tier;
             facility.difficulty = tier;
             facility.Generate();
-        }
-
-        // Subscribe to / unsubscribe from the exit-reached event for level advancement.
-        private void OnEnable()
-        {
-            Exit.Reached += NextLevel;
-            PlayerHealth.OnDied += Reload;
-        }
-
-        private void OnDisable()
-        {
-            Exit.Reached -= NextLevel;
-            PlayerHealth.OnDied -= Reload;
         }
     }
 }
