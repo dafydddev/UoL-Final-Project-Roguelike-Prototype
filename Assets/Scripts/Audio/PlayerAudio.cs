@@ -26,13 +26,13 @@ namespace Audio
         private void PlayHitSound(int _)
         {
             if (!playerHitClip) return;
-            UISoundManager.Instance.PlayClip(playerHitClip);
+            UISoundManager.Instance?.PlayClip(playerHitClip);
         }
 
         private void PlayDeathSound()
         {
             if (!playerDeathClip) return;
-            UISoundManager.Instance.PlayClip(playerDeathClip);
+            UISoundManager.Instance?.PlayClip(playerDeathClip);
         }
     }
 }

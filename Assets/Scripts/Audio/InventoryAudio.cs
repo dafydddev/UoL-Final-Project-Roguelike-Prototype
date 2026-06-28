@@ -26,7 +26,7 @@ namespace Audio
         private void PlayInventorySound()
         {
             if (!inventoryClip) return;
-            UISoundManager.Instance.PlayClip(inventoryClip);
+            UISoundManager.Instance?.PlayClip(inventoryClip);
         }
     }
 }
