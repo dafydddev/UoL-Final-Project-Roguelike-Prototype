@@ -50,6 +50,7 @@ namespace Generation
         private void OnDisable()
         {
             Exit.Reached -= NextLevel;
+            PlayerHealth.OnDied -= Reload;
         }
     }
 }
