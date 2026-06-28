@@ -13,6 +13,7 @@ namespace Generation
 
         [Tooltip("How many levels share one difficulty/complexity tier.")]
         public int levelsPerTier = 10;
+
         [Tooltip("Highest tier difficulty and complexity reach.")]
         public int maxTier = 2;
 
@@ -21,7 +22,13 @@ namespace Generation
 
         // Start the run at level 1.
         private void Start() => LoadLevel(1);
-        
+
+        // Advance to the level after the current one (called when an exit is reached).
+        private void NextLevel() => LoadLevel(CurrentLevel + 1);
+
+        // Reloading causes the player to go back to the start
+        private void Reload() => LoadLevel(1);
+
         // Subscribe to / unsubscribe from the exit-reached event for level advancement.
         private void OnEnable()
         {
@@ -34,12 +41,6 @@ namespace Generation
             Exit.Reached -= NextLevel;
             PlayerHealth.OnDied -= Reload;
         }
-
-        // Advance to the level after the current one (called when an exit is reached).
-        private void NextLevel() => LoadLevel(CurrentLevel + 1);
-        
-        // Reloading causes the player to go back to the start
-        private void Reload() => LoadLevel(1);
 
         // Loads the given level, deriving its tier and regenerating the facility.
         private void LoadLevel(int level)
