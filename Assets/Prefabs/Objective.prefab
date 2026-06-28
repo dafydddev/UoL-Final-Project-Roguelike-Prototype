@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 142420859596660051}
   - component: {fileID: 7004764865823588572}
-  - component: {fileID: -539616508775920187}
-  - component: {fileID: 6876249292886405647}
   - component: {fileID: 8145650055488190277}
   - component: {fileID: 8580196232243251699}
+  - component: {fileID: -539616508775920187}
+  - component: {fileID: 6876249292886405647}
   m_Layer: 0
   m_Name: Objective
   m_TagString: Untagged
@@ -95,38 +95,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &-539616508775920187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4668320888873925569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 527176fe3d984915bf4c7bcf5d4f3cda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Objectives.Objective
-  id: 
---- !u!114 &6876249292886405647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4668320888873925569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5930e4edcab72554ab4cea3a7add331d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Objectives.ObjectiveMinigame
-  arrowUp: {fileID: -7376450374345124491, guid: 2a9aeb1b12834124e8ab40d2c80c4d6b, type: 3}
-  arrowDown: {fileID: 7538607853240362647, guid: 576d61e1be0b90441b81db6cd0c9d42c, type: 3}
-  arrowLeft: {fileID: -4083143298681494050, guid: 674c33bc027165a4faf4521769aa1e1b, type: 3}
-  arrowRight: {fileID: -625188912391450670, guid: 98896755590473c40b8f291d3ba7c2e0, type: 3}
-  sequenceLength: 3
-  arrowSpacing: 0.6
-  displayOffset: {x: 0, y: 1.5, z: 0}
 --- !u!58 &8145650055488190277
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -209,3 +177,35 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &-539616508775920187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4668320888873925569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527176fe3d984915bf4c7bcf5d4f3cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Objectives.Objective
+  id: 
+--- !u!114 &6876249292886405647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4668320888873925569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5930e4edcab72554ab4cea3a7add331d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Objectives.ObjectiveMinigame
+  arrowUp: {fileID: -7376450374345124491, guid: 2a9aeb1b12834124e8ab40d2c80c4d6b, type: 3}
+  arrowDown: {fileID: 7538607853240362647, guid: 576d61e1be0b90441b81db6cd0c9d42c, type: 3}
+  arrowLeft: {fileID: -4083143298681494050, guid: 674c33bc027165a4faf4521769aa1e1b, type: 3}
+  arrowRight: {fileID: -625188912391450670, guid: 98896755590473c40b8f291d3ba7c2e0, type: 3}
+  sequenceLength: 3
+  arrowSpacing: 0.6
+  displayOffset: {x: 0, y: 1.5, z: 0}

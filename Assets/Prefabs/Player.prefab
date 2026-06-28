@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 7875455850860876263}
   - component: {fileID: -8553406071370541998}
   - component: {fileID: 8694211514588602691}
+  - component: {fileID: 4614540238960002989}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -282,3 +283,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Audio.DistractionAudio
   inventoryClip: {fileID: 8300000, guid: d695dda352302ee43ba6245423a3822c, type: 3}
+--- !u!114 &4614540238960002989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859736851051902249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9264b3c311f387d4c9ab36db4f55e512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Audio.ObjectiveMiniGameAudio
+  miniGameSuccessClip: {fileID: 8300000, guid: 7c4c8941a518a474e9f1deea47e284ca, type: 3}
+  miniGameFailureClip: {fileID: 8300000, guid: 89ac541540a09244f89d797e61e033e8, type: 3}
