@@ -1,4 +1,6 @@
+using System.Collections;
 using Exits;
+using Menu;
 using Player;
 using UnityEngine;
 
@@ -17,17 +19,21 @@ namespace Generation
         [Tooltip("Highest tier difficulty and complexity reach.")]
         public int maxTier = 2;
 
+        [Tooltip("Iris wipe played around each level load.")]
+        public IrisTransition iris;
+
         // The level number currently loaded.
         private int CurrentLevel { get; set; }
 
-        // Start the run at level 1.
-        private void Start() => LoadLevel(1);
+        // Start the run at level 1. The screen begins covered (see IrisTransition.Awake),
+        // so the first level builds behind black and only needs to open: 1.2 -> 0.
+        private void Start() => StartCoroutine(FirstLoad());
 
         // Advance to the level after the current one (called when an exit is reached).
-        private void NextLevel() => LoadLevel(CurrentLevel + 1);
+        private void NextLevel() => StartCoroutine(Transition(CurrentLevel + 1));
 
         // Reloading causes the player to go back to the start
-        private void Reload() => LoadLevel(1);
+        private void Reload() => StartCoroutine(Transition(1));
 
         // Subscribe to / unsubscribe from the exit-reached event for level advancement.
         private void OnEnable()
@@ -42,8 +48,24 @@ namespace Generation
             PlayerHealth.OnDied -= Reload;
         }
 
-        // Loads the given level, deriving its tier and regenerating the facility.
-        private void LoadLevel(int level)
+        // First load: build level 1 behind the already-black screen, then open. 1.2 -> 0.
+        private IEnumerator FirstLoad()
+        {
+            Build(1);
+            yield return iris.Open();
+        }
+
+        // Every later load (next level or death-reset): close to black, rebuild
+        // behind it, then open. 0 -> 1.2 -> 0, so the rebuild is never seen.
+        private IEnumerator Transition(int level)
+        {
+            yield return iris.Close();
+            Build(level);
+            yield return iris.Open();
+        }
+
+        // Builds the given level, deriving its tier and regenerating the facility.
+        private void Build(int level)
         {
             CurrentLevel = level;
 
