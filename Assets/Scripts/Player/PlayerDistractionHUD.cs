@@ -1,6 +1,6 @@
-using Items;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Player
 {
@@ -10,32 +10,25 @@ namespace Player
     public class PlayerDistractionHUD : MonoBehaviour
     {
         [SerializeField] private Sprite inventoryIconSprite;
+        [SerializeField] private TMP_Text countLabel; // shows "x3" etc.
         private Image _inventoryIcon;
 
         private void Awake()
         {
-            // Start hidden, and apply the configured icon sprite if one was set.
             _inventoryIcon = GetComponent<Image>();
             _inventoryIcon.enabled = false;
             if (inventoryIconSprite) _inventoryIcon.sprite = inventoryIconSprite;
         }
 
-        // Listen for inventory changes while active.
-        private void OnEnable()
-        {
-            PlayerDistractionInventory.OnInventoryChanged += OnThrowableChanged;
-        }
+        private void OnEnable() => PlayerDistractionInventory.OnInventoryChanged += OnCountChanged;
+        private void OnDisable() => PlayerDistractionInventory.OnInventoryChanged -= OnCountChanged;
 
-        private void OnDisable()
-        {
-            PlayerDistractionInventory.OnInventoryChanged -= OnThrowableChanged;
-        }
-
-        // Show or hide the icon based on whether the player is currently holding a throwable.
-        private void OnThrowableChanged(bool hasThrowable)
+        // Show the icon while carrying at least one, and display how many.
+        private void OnCountChanged(int count)
         {
             if (!_inventoryIcon || !inventoryIconSprite) return;
-            _inventoryIcon.enabled = hasThrowable;
+            _inventoryIcon.enabled = count > 0;
+            if (countLabel) countLabel.text = count > 0 ? $"x {count}" : "";
         }
     }
 }

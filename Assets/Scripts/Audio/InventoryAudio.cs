@@ -20,7 +20,7 @@ namespace Audio
             PlayerKeycardInventory.OnKeycardCollected -= PlayInventorySound;
         }
         
-        private void PlayInventorySound(bool _) => PlayInventorySound();
+        private void PlayInventorySound(int _) => PlayInventorySound();
         private void PlayInventorySound(string _) => PlayInventorySound();
         
         private void PlayInventorySound()
