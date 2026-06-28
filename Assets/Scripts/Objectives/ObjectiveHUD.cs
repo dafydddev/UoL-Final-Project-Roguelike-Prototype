@@ -15,14 +15,14 @@ namespace Objectives
         // Subscribe and draw the initial state when enabled.
         private void OnEnable()
         {
-            if (tracker != null) tracker.Changed += Redraw;
+            if (tracker != null) tracker.OnObjectiveChanged += Redraw;
             Redraw();
         }
 
         // Unsubscribe when disabled to avoid dangling event handlers.
         private void OnDisable()
         {
-            if (tracker != null) tracker.Changed -= Redraw;
+            if (tracker != null) tracker.OnObjectiveChanged -= Redraw;
         }
 
         // Rebuilds the objective text, primaries first, with completed lines ticked and coloured green.
