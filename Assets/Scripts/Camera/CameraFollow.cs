@@ -26,6 +26,15 @@ namespace Camera
         {
             // Set which object the camera should follow.
             target = targetTransform;
+            SnapToTarget();
+        }
+
+        // Jump straight to the target with no interpolation — used on (re)spawn
+        // so the camera doesn't slide across the level to the new position.
+        public void SnapToTarget()
+        {
+            if (!target) return;
+            transform.position = target.position + Vector3.back * zOffset;
         }
     }
 }
