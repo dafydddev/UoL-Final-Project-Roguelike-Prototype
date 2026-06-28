@@ -281,4 +281,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a427c055d59ae428bf1e1ec77ecab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Audio.DistractionAudio
-  distractionClip: {fileID: 8300000, guid: 6c642b1a491726e4693a564457499e26, type: 3}
+  inventoryClip: {fileID: 8300000, guid: d695dda352302ee43ba6245423a3822c, type: 3}
