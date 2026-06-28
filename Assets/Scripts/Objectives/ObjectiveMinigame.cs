@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace Objectives
 {
@@ -29,6 +31,9 @@ namespace Objectives
 
         private Objective _objective;
         private ObjectiveTracker _tracker;
+
+        public static event Action OnMiniGameSuccess;
+        public static event Action OnMiniGameFailure;
 
         private void Awake()
         {
@@ -71,6 +76,7 @@ namespace Objectives
             {
                 _index = 0; // wrong press restarts the sequence
                 Refresh();
+                OnMiniGameFailure?.Invoke();
             }
         }
 
@@ -94,6 +100,7 @@ namespace Objectives
             {
                 _tracker.Complete(_objective.id);
             }
+            OnMiniGameSuccess?.Invoke();
         }
 
         // Abort the current run without completing.
