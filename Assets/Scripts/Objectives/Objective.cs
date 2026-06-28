@@ -14,17 +14,17 @@ namespace Objectives
         private void OnEnable()
         {
             _tracker = FindAnyObjectByType<ObjectiveTracker>();
-            if (_tracker != null) _tracker.Changed += OnChanged;
+            if (_tracker != null) _tracker.OnObjectiveChanged += OnOnObjectiveChanged;
         }
 
         // Stop listening when disabled.
         private void OnDisable()
         {
-            if (_tracker != null) _tracker.Changed -= OnChanged;
+            if (_tracker != null) _tracker.OnObjectiveChanged -= OnOnObjectiveChanged;
         }
 
         // Deactivate this object once its objective has been completed.
-        private void OnChanged()
+        private void OnOnObjectiveChanged()
         {
             if (_tracker.IsComplete(id)) gameObject.SetActive(false);
         }

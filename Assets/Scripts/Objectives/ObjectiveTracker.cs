@@ -20,7 +20,7 @@ namespace Objectives
     public class ObjectiveTracker : MonoBehaviour
     {
         // Raised whenever the objective list or any completion state changes.
-        public event Action Changed;
+        public event Action OnObjectiveChanged;
 
         private readonly List<ObjectiveState> _objectives = new();
         public IReadOnlyList<ObjectiveState> Objectives => _objectives;
@@ -42,7 +42,7 @@ namespace Objectives
                 });
             }
 
-            Changed?.Invoke();
+            OnObjectiveChanged?.Invoke();
         }
 
         // Marks an objective complete (no-op if unknown or already done) and notifies listeners.
@@ -51,7 +51,7 @@ namespace Objectives
             var o = _objectives.Find(e => e.id == id);
             if (o == null || o.complete) return;
             o.complete = true;
-            Changed?.Invoke();
+            OnObjectiveChanged?.Invoke();
         }
 
         // Whether a specific objective is complete.
