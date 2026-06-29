@@ -80,7 +80,7 @@ Assets/
 │   ├── Player/       # Controller, hiding, inventories, health, HUDs
 │   ├── Items/        # Distraction and cover items + spawners
 │   ├── Keycards/ Doors/ Exits/ Disguises/   # Access systems and run flow
-│   ├── Menu/ Camera/ Audio/                 # UI, camera follow, audio
+│   ├── Menu/ Camera/ Audio/ Effects/        # UI, camera follow, audio, effects
 │   └── ...
 └── Editor/           # MissionGraphEditorWindow — custom graph visualiser tool
 ```
