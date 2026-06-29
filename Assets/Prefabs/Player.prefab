@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: -8553406071370541998}
   - component: {fileID: 8694211514588602691}
   - component: {fileID: 4614540238960002989}
+  - component: {fileID: -4202447609884212994}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -268,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f0c0b14f5174b40a3493cba532ce1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Audio.PlayerAudio
-  playerHitClip: {fileID: 8300000, guid: 9bbdddecf4847f54fa8cf8749c5a49a7, type: 3}
+  playerHitClip: {fileID: 8300000, guid: e8ddba1a2937ae647b4a4108d18da81e, type: 3}
   playerDeathClip: {fileID: 8300000, guid: bc4b2c56863d6a14dacd91ac8c6db016, type: 3}
 --- !u!114 &8694211514588602691
 MonoBehaviour:
@@ -282,7 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a427c055d59ae428bf1e1ec77ecab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Audio.DistractionAudio
-  inventoryClip: {fileID: 8300000, guid: d695dda352302ee43ba6245423a3822c, type: 3}
+  distractionClip: {fileID: 8300000, guid: 920d705f63e13b644930e666f8e32130, type: 3}
+  keycardClip: {fileID: 8300000, guid: b5ffe911de7f9954d8dcf90463880a14, type: 3}
 --- !u!114 &4614540238960002989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,3 +299,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Audio.ObjectiveMiniGameAudio
   miniGameSuccessClip: {fileID: 8300000, guid: 7c4c8941a518a474e9f1deea47e284ca, type: 3}
   miniGameFailureClip: {fileID: 8300000, guid: 89ac541540a09244f89d797e61e033e8, type: 3}
+--- !u!114 &-4202447609884212994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859736851051902249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69667bec39344c34a3ff820afb98c81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Audio.LockedDoorAudio
+  unlockedClip: {fileID: 8300000, guid: de8cd24bdeaeb17439f993a33ef1242f, type: 3}

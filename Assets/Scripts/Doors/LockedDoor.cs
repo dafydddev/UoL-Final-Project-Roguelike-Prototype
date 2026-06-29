@@ -1,3 +1,4 @@
+using System;
 using Keycards;
 using Player;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Doors
         // The key required to open this door.
         public string keyId;
 
+        public static event Action OnDoorOpened;
+        
         private void Start()
         {
             // Colour the door's sprite to match its key.
@@ -49,8 +52,8 @@ namespace Doors
             {
                 col.enabled = false;
             }
-
             gameObject.SetActive(false);
+            OnDoorOpened?.Invoke();
         }
     }
 }
