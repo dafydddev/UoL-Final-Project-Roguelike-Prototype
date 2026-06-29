@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Menu
+namespace Effects
 {
     // A facility floor-plan schematic that drifts slowly behind the black menu:
     // rooms of varying sizes linked by corridors over a faint grid, in blueprint blue.
@@ -146,9 +147,7 @@ namespace Menu
         // True if the point lies strictly inside any room (not on its wall).
         private static bool InsideAnyRoom(List<RectInt> rooms, int x, int y)
         {
-            foreach (var r in rooms)
-                if (x > r.xMin && x < r.xMax && y > r.yMin && y < r.yMax) return true;
-            return false;
+            return rooms.Any(r => x > r.xMin && x < r.xMax && y > r.yMin && y < r.yMax);
         }
 
         // An L-shaped corridor from a to b, skipping any pixel inside a room so it stops at

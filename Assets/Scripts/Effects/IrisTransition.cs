@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Menu
+namespace Effects
 {
     // Animates the iris material's _Radius to wipe the screen black and back.
     // In the shader graph 0 fully reveals the scene and coveredRadius fully blacks it out,
